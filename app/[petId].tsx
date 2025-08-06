@@ -5,13 +5,13 @@ import pets from "@/data/pets";
 
 const PetDetails = () => {
   const { petId } = useLocalSearchParams();
-  const pet = pets[0];
+  const pet = pets.find((singlePet) => singlePet.id === +petId);
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{pet.name}</Text>
-      <Image source={{ uri: pet.image }} style={styles.image} />
-      <Text style={styles.description}> {pet.description}</Text>
-      <Text style={styles.type}>Type: {pet.type}</Text>
+      <Text style={styles.name}>{pet?.name}</Text>
+      <Image source={{ uri: pet?.image }} style={styles.image} />
+      <Text style={styles.description}> {pet?.description}</Text>
+      <Text style={styles.type}>Type: {pet?.type}</Text>
 
       <View>
         <TouchableOpacity style={styles.button}>

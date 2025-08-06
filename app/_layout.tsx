@@ -1,9 +1,13 @@
 import { Stack, useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import AddPet from "@/components/AddPet";
+import { useState } from "react";
 
 export default function RootLayout() {
+  const [isVisible, setModalVisible] = useState<boolean>(false);
   const router = useRouter();
+
   return (
     <Stack
       screenOptions={{
@@ -12,8 +16,9 @@ export default function RootLayout() {
         },
         headerShadowVisible: false,
         headerRight: () => (
-          <TouchableOpacity onPress={() => router.push("/AddPet")}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
             <MaterialIcons name="add" size={30} color="black" />
+            <AddPet setModalVisible={setModalVisible} isVisible={isVisible} />
           </TouchableOpacity>
         ),
       }}
@@ -36,18 +41,6 @@ export default function RootLayout() {
             backgroundColor: "#f9e3be",
           },
           headerShadowVisible: false,
-        }}
-      />
-      <Stack.Screen
-        name="AddPet"
-        options={{
-          headerTitle: "Add Pet",
-          presentation: "modal",
-          headerRight: () => (
-            <TouchableOpacity onPress={() => router.back()}>
-              <MaterialIcons name="close" size={30} color="black" />
-            </TouchableOpacity>
-          ),
         }}
       />
     </Stack>
