@@ -16,7 +16,7 @@ interface PetItemProps {
     description: string;
     type: string;
     image: string;
-    image2: string;
+   //image2: string;
   };
   setDisplayPets: (pets: any[]) => void;
   displayPets: any[];
@@ -38,7 +38,7 @@ const PetItem = ({ pet, setDisplayPets, displayPets }: PetItemProps) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.petButton}
-            onPress={() => setImage(pet.image2)}
+            onPress={() => setImage(pet.image)}
           >
             <Text style={styles.buttonText}>Pet</Text>
           </TouchableOpacity>

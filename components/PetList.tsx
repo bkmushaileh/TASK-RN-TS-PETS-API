@@ -5,15 +5,34 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
-import pets from "@/data/pets";
+import React, { useEffect, useState } from "react";
+//import pets from "@/data/pets";
 import PetItem from "./PetItem";
-
+//import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import axios from "axios";
+//import pets from "@/data/pets";
+type Pet = {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+  image: string;
+};
 const PetList = () => {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
-  const [displayPets, setDisplayPets] = useState(pets);
+  const [displayPets, setDisplayPets] = useState<Pet[]>([]);
 
+  const getData = async () => {
+    const response = await axios.get(
+      "https://pets-react-query-backend.eapi.joincoded.com/pets"
+    );
+    setDisplayPets(response.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   const petList = displayPets
     .filter((pet) => pet.name.toLowerCase().includes(search.toLowerCase()))
     .filter((pet) => pet.type.toLowerCase().includes(type.toLowerCase()))
