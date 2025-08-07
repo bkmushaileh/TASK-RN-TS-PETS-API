@@ -32,7 +32,7 @@ const PetList = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [displayPets]);
   const petList = displayPets
     .filter((pet) => pet.name.toLowerCase().includes(search.toLowerCase()))
     .filter((pet) => pet.type.toLowerCase().includes(type.toLowerCase()))

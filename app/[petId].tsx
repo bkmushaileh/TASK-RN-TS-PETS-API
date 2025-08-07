@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import pets from "@/data/pets";
 import axios from "axios";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
@@ -19,12 +19,19 @@ const PetDetails = () => {
       `https://pets-react-query-backend.eapi.joincoded.com/pets/${petId}`
     );
     setPet(res.data);
-    console.log(pet);
+    //console.log(pet);
   };
   // const pet = pets.find((singlePet) => singlePet.id === +petId);
   useEffect(() => {
     getData();
   }, []);
+
+  const handleDelete = async (id: number) => {
+    const res = await axios.delete(
+      `https://pets-react-query-backend.eapi.joincoded.com/pets/${id}`
+    );
+    router.replace("..");
+  };
 
   return (
     <View style={styles.container}>
@@ -34,7 +41,12 @@ const PetDetails = () => {
       <Text style={styles.type}>Type: {pet?.type}</Text>
 
       <View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            handleDelete(+petId);
+          }}
+        >
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>
